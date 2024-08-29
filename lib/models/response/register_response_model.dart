@@ -1,17 +1,17 @@
 class RegisterResponseModel {
-  late String token;
+  late String message;
 
   RegisterResponseModel({
-    required this.token,
+    required this.message,
   });
 
   RegisterResponseModel.fromJson(Map<String, dynamic> json) {
-    token = json['token'];
+    message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['token'] = token;
+    data['message'] = message;
     return data;
   }
 }

@@ -24,6 +24,7 @@
   "register_view__sign_in": "Sign In",
   "register_view__your_future": "YOUR FUTURE PUP BEGINS HERE",
   "register_view__password_mismatch": "Password doesn't match",
+  "register_view__verification_email_send": "Verification email has been sent to your email",
   "field_validation__required": "This field is required",
   "forgot_password_dialog__title": "Please contact customer service for assistance",
   "forgot_password_dialog__button": "Alright",
@@ -37,6 +38,9 @@
   "drawer__logout": "Logout",
   "drawer__version": "Version 1.0.0",
   "home_view__title": "Home",
+  "home_view__completed": "completed",
+  "home_view__out_of": "out of",
+  "home_view__lessons": "lessons",
   "profile_view__title": "Profile",
   "profile_view__edit": "Edit Profile",
   "profile_view__success_message": "Profile updated successfully",
@@ -45,5 +49,8 @@
   "change_password_view__new_password": "New Password",
   "change_password_view__confirm_password": "Confirm Password",
   "change_password_view__submit": "Submit",
-  "community_view__title": "Community"
+  "community_view__title": "Community",
+  "lessons_view__lessons": "Lessons",
+  "lessons_view__take_exam": "Unit Exam",
+  "lesson_view__title": "Lesson"
 }

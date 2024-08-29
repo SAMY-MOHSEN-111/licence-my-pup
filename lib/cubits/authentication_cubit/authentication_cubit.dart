@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dog_license_application/generated/l10n.dart';
 import 'package:dog_license_application/helpers/snack_bar_helper.dart';
 import 'package:dog_license_application/models/request/login_request_model.dart';
 import 'package:dog_license_application/models/request/register_request_model.dart';
@@ -8,6 +9,7 @@ import 'package:dog_license_application/views/home_view.dart';
 import 'package:dog_license_application/views/login_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 part 'authentication_state.dart';
@@ -45,9 +47,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     var response = await AuthenticationRepo().register(model);
     if (response is RegisterSuccessResponse) {
       isLoading = false;
-      await GetStorage().write("token", response.registerResponseModel.token);
-      await GetStorage().write("logged-in", true);
       Get.offAllNamed(HomeView.id);
+      showSnackBar(response.registerResponseModel.message);
       emit(AuthenticationSuccess());
     } else if (response is RegisterFailedResponse) {
       isLoading = false;

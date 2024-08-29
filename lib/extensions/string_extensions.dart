@@ -4,3 +4,10 @@ extension StringExtension on String {
     return this[0].toUpperCase() + substring(1);
   }
 }
+
+extension StringExtensions on String {
+  String extractVideoId(){
+    if(isEmpty) return this;
+    return split("v=")[1];
+  }
+}

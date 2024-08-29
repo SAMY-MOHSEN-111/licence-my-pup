@@ -1,0 +1,173 @@
+import 'package:dog_license_application/constants/theme_constants.dart';
+import 'package:dog_license_application/cubits/lessons_cubit/lessons_cubit.dart';
+import 'package:dog_license_application/models/response/lesson_response_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class QuizComponent extends StatefulWidget {
+  final int unitId;
+  final LessonResponseModel lesson;
+
+  const QuizComponent({super.key, required this.lesson, required this.unitId});
+
+  @override
+  State<QuizComponent> createState() => _QuizComponentState();
+}
+
+class _QuizComponentState extends State<QuizComponent> {
+  int currentQuestionIndex = 0;
+
+  void nextQuestion() {
+    setState(() {
+      if (currentQuestionIndex < widget.lesson.questions.length - 1) {
+        currentQuestionIndex++;
+      }
+    });
+  }
+
+  void previousQuestion() {
+    setState(() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+      }
+    });
+  }
+
+  void resetQuiz() {
+    setState(() {
+      for (var question in widget.lesson.questions) {
+        question.isAnswered = false;
+        question.selectedOption = null;
+        for (var option in question.options) {
+          option.isSelected = false;
+        }
+      }
+      currentQuestionIndex = 0;
+    });
+  }
+
+  void submitQuiz() {
+    BlocProvider.of<LessonsCubit>(context).markLessonAsCompleted(widget.unitId, widget.lesson.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var question = widget.lesson.questions[currentQuestionIndex];
+    Color titleColor = Colors.black;
+
+    if (question.isAnswered) {
+      if (question.selectedOption?.id == question.correctAnswer.id) {
+        titleColor = Colors.green;
+      } else {
+        titleColor = Colors.red;
+      }
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 15),
+        const Divider(),
+        const Text(
+          'Quiz',
+          style: TextStyle(
+            fontSize: 26,
+            color: kPrimaryColor,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "${currentQuestionIndex + 1} ) ${question.text}",
+            style: TextStyle(
+              fontSize: 18,
+              color: titleColor,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ),
+        const SizedBox(height: 5),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: question.options.length,
+          itemBuilder: (context, optionIndex) {
+            var option = question.options[optionIndex];
+            Color? tileColor;
+            Color textColor = Colors.black;
+
+            if (question.isAnswered) {
+              if (option.id == question.correctAnswer.id) {
+                tileColor = Colors.green;
+                textColor = Colors.white;
+              } else if (option.isSelected == true) {
+                tileColor = Colors.red;
+                textColor = Colors.white;
+              }
+            }
+
+            return RadioListTile<OptionResponseModel>(
+              dense: true,
+              fillColor: WidgetStateProperty.all(Colors.black),
+              contentPadding: const EdgeInsets.only(left: 16),
+              title: Text(
+                option.text,
+                style: TextStyle(color: textColor, fontStyle: FontStyle.italic),
+              ),
+              value: option,
+              groupValue: question.selectedOption,
+              tileColor: tileColor,
+              onChanged: question.isAnswered
+                  ? null
+                  : (value) {
+                      setState(() {
+                        question.isAnswered = true;
+                        question.selectedOption = value;
+                        option.isSelected = true;
+                      });
+                    },
+            );
+          },
+        ),
+        const SizedBox(height: 15),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ElevatedButton(
+              onPressed: currentQuestionIndex > 0 ? previousQuestion : null,
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(110, 40),
+                backgroundColor: kPrimaryColor,
+              ),
+              child: const Text('Previous', style: TextStyle(color: Colors.white)),
+            ),
+            if (currentQuestionIndex < widget.lesson.questions.length - 1)
+              ElevatedButton(
+                onPressed: question.isAnswered ? nextQuestion : null,
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(110, 40),
+                  backgroundColor: kPrimaryColor,
+                ),
+                child: const Text('Next', style: TextStyle(color: Colors.white)),
+              )
+            else
+              ElevatedButton(
+                onPressed: question.isAnswered
+                    ? () {
+                        if (question.isAnswered) submitQuiz();
+                      }
+                    : null,
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(110, 40),
+                  backgroundColor: kPrimaryColor,
+                ),
+                child: const Text('Submit', style: TextStyle(color: Colors.white)),
+              ),
+          ],
+        ),
+        const SizedBox(height: 15),
+      ],
+    );
+  }
+}

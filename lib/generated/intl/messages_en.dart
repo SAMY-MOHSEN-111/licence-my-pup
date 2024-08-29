@@ -50,7 +50,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Alright"),
         "forgot_password_dialog__title": MessageLookupByLibrary.simpleMessage(
             "Please contact customer service for assistance"),
+        "home_view__completed":
+            MessageLookupByLibrary.simpleMessage("completed"),
+        "home_view__lessons": MessageLookupByLibrary.simpleMessage("lessons"),
+        "home_view__out_of": MessageLookupByLibrary.simpleMessage("out of"),
         "home_view__title": MessageLookupByLibrary.simpleMessage("Home"),
+        "lesson_view__title": MessageLookupByLibrary.simpleMessage("Lesson"),
+        "lessons_view__lessons":
+            MessageLookupByLibrary.simpleMessage("Lessons"),
+        "lessons_view__take_exam":
+            MessageLookupByLibrary.simpleMessage("Unit Exam"),
         "login_view__email": MessageLookupByLibrary.simpleMessage("Email"),
         "login_view__keep_logged_in":
             MessageLookupByLibrary.simpleMessage("Remember me"),
@@ -91,6 +100,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "register_view__union": MessageLookupByLibrary.simpleMessage("Union"),
         "register_view__username":
             MessageLookupByLibrary.simpleMessage("Full Name"),
+        "register_view__verification_email_send":
+            MessageLookupByLibrary.simpleMessage(
+                "Verification email has been sent to your email"),
         "register_view__your_future":
             MessageLookupByLibrary.simpleMessage("YOUR FUTURE PUP BEGINS HERE"),
         "snackbar__default_title":

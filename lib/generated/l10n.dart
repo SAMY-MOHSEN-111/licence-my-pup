@@ -290,6 +290,16 @@ class S {
     );
   }
 
+  /// `Verification email has been sent to your email`
+  String get register_view__verification_email_send {
+    return Intl.message(
+      'Verification email has been sent to your email',
+      name: 'register_view__verification_email_send',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `This field is required`
   String get field_validation__required {
     return Intl.message(
@@ -420,6 +430,36 @@ class S {
     );
   }
 
+  /// `completed`
+  String get home_view__completed {
+    return Intl.message(
+      'completed',
+      name: 'home_view__completed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `out of`
+  String get home_view__out_of {
+    return Intl.message(
+      'out of',
+      name: 'home_view__out_of',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `lessons`
+  String get home_view__lessons {
+    return Intl.message(
+      'lessons',
+      name: 'home_view__lessons',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Profile`
   String get profile_view__title {
     return Intl.message(
@@ -505,6 +545,36 @@ class S {
     return Intl.message(
       'Community',
       name: 'community_view__title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lessons`
+  String get lessons_view__lessons {
+    return Intl.message(
+      'Lessons',
+      name: 'lessons_view__lessons',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit Exam`
+  String get lessons_view__take_exam {
+    return Intl.message(
+      'Unit Exam',
+      name: 'lessons_view__take_exam',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lesson`
+  String get lesson_view__title {
+    return Intl.message(
+      'Lesson',
+      name: 'lesson_view__title',
       desc: '',
       args: [],
     );

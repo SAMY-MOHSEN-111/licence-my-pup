@@ -32,6 +32,7 @@ class DioClient extends GetxService {
       onError: (DioException error, handler) {
         if (error.response?.statusCode == 401) {
           GetStorage().remove("token");
+          GetStorage().write("logged-in", false);
           Get.offAllNamed(LoginView.id);
         }
         return handler.next(error);
