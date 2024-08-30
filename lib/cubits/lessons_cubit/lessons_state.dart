@@ -1,16 +1,26 @@
 part of 'lessons_cubit.dart';
 
 @immutable
-sealed class LessonsState {}
+sealed class LessonsState {
+  final bool isLoading;
 
-final class LessonsInitial extends LessonsState {}
+  const LessonsState({required this.isLoading});
+}
 
-final class LessonsLoading extends LessonsState {}
+final class LessonsInitial extends LessonsState {
+  const LessonsInitial() : super(isLoading: false);
+}
 
-final class LessonsSuccess extends LessonsState {}
+final class LessonsLoading extends LessonsState {
+  const LessonsLoading() : super(isLoading: true);
+}
+
+final class LessonsSuccess extends LessonsState {
+  const LessonsSuccess() : super(isLoading: false);
+}
 
 final class LessonsFailure extends LessonsState {
   final String message;
 
-  LessonsFailure({required this.message});
+  const LessonsFailure({required this.message}) : super(isLoading: false);
 }

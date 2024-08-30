@@ -160,9 +160,7 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _renderResetPassword(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        Get.dialog(const ForgetPasswordDialog());
-      },
+      onPressed: () => Get.dialog(ForgetPasswordDialog()),
       child: Text(
         S.of(context).login_view__reset_password,
         style: const TextStyle(fontSize: 12),

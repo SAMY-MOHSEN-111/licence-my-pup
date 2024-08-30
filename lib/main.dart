@@ -8,6 +8,7 @@ import 'package:dog_license_application/generated/l10n.dart';
 import 'package:dog_license_application/themes/light_theme.dart';
 import 'package:dog_license_application/views/change_password_view.dart';
 import 'package:dog_license_application/views/community_view.dart';
+import 'package:dog_license_application/views/forget_password_view.dart';
 import 'package:dog_license_application/views/home_view.dart';
 import 'package:dog_license_application/views/lesson_view.dart';
 import 'package:dog_license_application/views/lessons_view.dart';
@@ -85,6 +86,7 @@ class DogLicenseApplication extends StatelessWidget {
                 GetPage(name: LessonView.id, page: () => const LessonView(), transition: Transition.rightToLeft),
                 GetPage(name: LessonsView.id, page: () => const LessonsView(), transition: Transition.rightToLeft),
                 GetPage(name: WebViewView.id, page: () => const WebViewView(), transition: Transition.rightToLeft),
+                GetPage(name: ForgetPasswordView.id, page: () => const ForgetPasswordView(), transition: Transition.rightToLeft),
               ],
               initialRoute: loggedIn ? HomeView.id : LoginView.id,
             );

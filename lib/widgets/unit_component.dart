@@ -42,7 +42,7 @@ class UnitComponent extends StatelessWidget {
                 fit: BoxFit.cover,
                 alignment: const Alignment(0, -0.5),
                 placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) => const Icon(Icons.error, color: kPrimaryColor),
               ),
             ),
             const SizedBox(height: 20),

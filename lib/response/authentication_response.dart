@@ -26,3 +26,19 @@ class RegisterFailedResponse extends AuthenticationResponse {
 
   RegisterFailedResponse({required this.message});
 }
+
+class ForgetPasswordSuccessResponse extends AuthenticationResponse {}
+
+class ForgetPasswordFailedResponse extends AuthenticationResponse {
+  final String message;
+
+  ForgetPasswordFailedResponse({required this.message});
+}
+
+class ResetPasswordSuccessResponse extends AuthenticationResponse {}
+
+class ResetPasswordFailedResponse extends AuthenticationResponse {
+  final String message;
+
+  ResetPasswordFailedResponse({required this.message});
+}

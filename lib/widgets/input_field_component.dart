@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class InputFieldComponent extends StatelessWidget {
+  final double fontSize;
   final IconData icon;
   final String hintText;
   final bool isReadOnly;
@@ -15,6 +16,7 @@ class InputFieldComponent extends StatelessWidget {
     super.key,
     this.onTap,
     this.controller,
+    this.fontSize = 16,
     required this.icon,
     required this.hintText,
     required this.validator,
@@ -25,6 +27,7 @@ class InputFieldComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: TextStyle(fontSize: fontSize),
       controller: controller,
       readOnly: isReadOnly,
       onChanged: onChanged,
