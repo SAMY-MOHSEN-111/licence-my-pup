@@ -30,7 +30,10 @@ class InputFieldComponent extends StatelessWidget {
       style: TextStyle(fontSize: fontSize),
       controller: controller,
       readOnly: isReadOnly,
-      onChanged: onChanged,
+      onChanged: (str){
+        str = str.trim();
+        onChanged!(str);
+      },
       validator: validator,
       decoration: InputDecoration(
         filled: true,

@@ -1,5 +1,6 @@
 import 'package:dog_license_application/generated/l10n.dart';
 import 'package:dog_license_application/widgets/drawer_component.dart';
+import 'package:dog_license_application/widgets/reusable_fab.dart';
 import 'package:flutter/material.dart';
 
 class CommunityView extends StatelessWidget {
@@ -14,6 +15,10 @@ class CommunityView extends StatelessWidget {
         title: Text(S.of(context).community_view__title),
       ),
       drawer: const DrawerComponent(),
+      floatingActionButton: ReusableFAB(
+        icon: const Icon(Icons.add),
+        onPressed: () {},
+      ),
     );
   }
 }
