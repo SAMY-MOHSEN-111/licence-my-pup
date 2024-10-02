@@ -22,6 +22,10 @@ class _HomeViewState extends State<HomeView> {
     BlocProvider.of<UnitsCubit>(context).getAllUnits();
   }
 
+  Future<void> _refreshUnits() async {
+    BlocProvider.of<UnitsCubit>(context).getAllUnits(); // Refresh the units
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UnitsCubit, UnitsState>(
@@ -32,24 +36,30 @@ class _HomeViewState extends State<HomeView> {
             title: Text(S.of(context).home_view__title),
           ),
           drawer: const DrawerComponent(),
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  const SizedBox(height: 15),
-                  Expanded(
-                    child: ListView.separated(
-                      itemCount: bloc.isLoading ? 3 : bloc.units.length,
-                      itemBuilder: (context, index) {
-                        return bloc.isLoading ? const UnitComponentSkeleton() : UnitComponent(model: bloc.units[index]);
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(height: 15);
-                      },
+          body: RefreshIndicator(
+            onRefresh: _refreshUnits, // Set the refresh function
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 15),
+                    Expanded(
+                      child: ListView.separated(
+                        itemCount: bloc.isLoading ? 3 : bloc.units.length,
+                        itemBuilder: (context, index) {
+                          return bloc.isLoading
+                              ? const UnitComponentSkeleton()
+                              : UnitComponent(model: bloc.units[index]);
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(height: 15);
+                        },
+                      ),
                     ),
-                  )
-                ],
+                    const SizedBox(height: 15),
+                  ],
+                ),
               ),
             ),
           ),

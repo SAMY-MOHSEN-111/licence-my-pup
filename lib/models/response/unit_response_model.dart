@@ -3,7 +3,7 @@ class UnitResponseModel {
   late String name;
   late String description;
   late String imageUrl;
-  late String exam;
+  late String? exam;
   late int completedLessons;
   late int totalLessons;
 

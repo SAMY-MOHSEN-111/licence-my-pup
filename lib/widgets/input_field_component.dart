@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class InputFieldComponent extends StatelessWidget {
-  final double fontSize;
   final IconData icon;
+  final int? maxLines;
+  final double fontSize;
   final String hintText;
   final bool isReadOnly;
   final void Function()? onTap;
@@ -13,6 +14,7 @@ class InputFieldComponent extends StatelessWidget {
   final String? Function(String?)? validator;
 
   const InputFieldComponent({
+    this.maxLines = 1,
     super.key,
     this.onTap,
     this.controller,
@@ -27,6 +29,7 @@ class InputFieldComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       style: TextStyle(fontSize: fontSize),
       controller: controller,
       readOnly: isReadOnly,

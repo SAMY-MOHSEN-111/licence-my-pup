@@ -1,25 +1,30 @@
 import 'package:dog_license_application/constants/theme_constants.dart';
-import 'package:dog_license_application/cubits/lessons_cubit/lessons_cubit.dart';
-import 'package:dog_license_application/models/response/lesson_response_model.dart';
+import 'package:dog_license_application/cubits/exams_cubit/exams_cubit.dart';
+import 'package:dog_license_application/models/request/submit_exam_request_model.dart';
+import 'package:dog_license_application/models/response/exam_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class QuizComponent extends StatefulWidget {
+class ExamComponent extends StatefulWidget {
   final int unitId;
-  final LessonResponseModel lesson;
+  final List<QuestionResponseModel> questions; // Directly accept a list of questions
 
-  const QuizComponent({super.key, required this.lesson, required this.unitId, });
+  const ExamComponent({
+    super.key,
+    required this.questions,
+    required this.unitId,
+  });
 
   @override
-  State<QuizComponent> createState() => _QuizComponentState();
+  State<ExamComponent> createState() => _ExamComponentState();
 }
 
-class _QuizComponentState extends State<QuizComponent> {
+class _ExamComponentState extends State<ExamComponent> {
   int currentQuestionIndex = 0;
 
   void nextQuestion() {
     setState(() {
-      if (currentQuestionIndex < widget.lesson.questions.length - 1) {
+      if (currentQuestionIndex < widget.questions.length - 1) {
         currentQuestionIndex++;
       }
     });
@@ -35,7 +40,7 @@ class _QuizComponentState extends State<QuizComponent> {
 
   void resetQuiz() {
     setState(() {
-      for (var question in widget.lesson.questions) {
+      for (var question in widget.questions) {
         question.isAnswered = false;
         question.selectedOption = null;
         for (var option in question.options) {
@@ -47,14 +52,21 @@ class _QuizComponentState extends State<QuizComponent> {
   }
 
   void submitQuiz() {
-    BlocProvider.of<LessonsCubit>(context).markLessonAsCompleted(widget.unitId, widget.lesson.id);
+    var answers = widget.questions
+        .map((q) => Answer(questionId: q.id, optionId: q.selectedOption!.id))
+        .toList();
+    BlocProvider.of<ExamsCubit>(context).markExamAsCompleted(
+      widget.unitId,
+      SubmitExamRequestModel(answers: answers),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    var question = widget.lesson.questions[currentQuestionIndex];
+    var question = widget.questions[currentQuestionIndex];
     Color titleColor = Colors.black;
 
+    /*
     if (question.isAnswered) {
       if (question.selectedOption?.id == question.correctAnswer.id) {
         titleColor = Colors.green;
@@ -62,20 +74,12 @@ class _QuizComponentState extends State<QuizComponent> {
         titleColor = Colors.red;
       }
     }
+    */
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 15),
-        const Divider(),
-        const Text(
-          'Quiz',
-          style: TextStyle(
-            fontSize: 26,
-            color: kPrimaryColor,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
@@ -97,6 +101,7 @@ class _QuizComponentState extends State<QuizComponent> {
             Color? tileColor;
             Color textColor = Colors.black;
 
+            /*
             if (question.isAnswered) {
               if (option.id == question.correctAnswer.id) {
                 tileColor = Colors.green;
@@ -106,10 +111,11 @@ class _QuizComponentState extends State<QuizComponent> {
                 textColor = Colors.white;
               }
             }
+            */
 
             return RadioListTile<OptionResponseModel>(
               dense: true,
-              fillColor: WidgetStateProperty.all(Colors.black),
+              fillColor: MaterialStateProperty.all(Colors.black),
               contentPadding: const EdgeInsets.only(left: 16),
               title: Text(
                 option.text,
@@ -118,9 +124,7 @@ class _QuizComponentState extends State<QuizComponent> {
               value: option,
               groupValue: question.selectedOption,
               tileColor: tileColor,
-              onChanged: question.isAnswered
-                  ? null
-                  : (value) {
+              onChanged: (value) {
                       setState(() {
                         question.isAnswered = true;
                         question.selectedOption = value;
@@ -142,7 +146,7 @@ class _QuizComponentState extends State<QuizComponent> {
               ),
               child: const Text('Previous', style: TextStyle(color: Colors.white)),
             ),
-            if (currentQuestionIndex < widget.lesson.questions.length - 1)
+            if (currentQuestionIndex < widget.questions.length - 1)
               ElevatedButton(
                 onPressed: question.isAnswered ? nextQuestion : null,
                 style: ElevatedButton.styleFrom(

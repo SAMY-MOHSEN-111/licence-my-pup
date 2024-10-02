@@ -1,5 +1,6 @@
 import 'package:dog_license_application/constants/theme_constants.dart';
 import 'package:dog_license_application/cubits/authentication_cubit/authentication_cubit.dart';
+import 'package:dog_license_application/cubits/change_locale_cubit/change_locale_cubit.dart';
 import 'package:dog_license_application/generated/l10n.dart';
 import 'package:dog_license_application/models/request/login_request_model.dart';
 import 'package:dog_license_application/validators/required_field_validator.dart';
@@ -8,6 +9,7 @@ import 'package:dog_license_application/widgets/input_field_component.dart';
 import 'package:dog_license_application/widgets/no_account_component.dart';
 import 'package:dog_license_application/widgets/password_field_component.dart';
 import 'package:dog_license_application/widgets/primary_button_component.dart';
+import 'package:dog_license_application/widgets/reusable_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -122,10 +124,10 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
             ),
-            // floatingActionButton: ReusableFAB(
-            //   icon: const Icon(Icons.translate),
-            //   onPressed: () => BlocProvider.of<ChangeLocaleCubit>(context).changeLocale(context),
-            // ),
+            floatingActionButton: ReusableFAB(
+              icon: const Icon(Icons.translate),
+              onPressed: () => BlocProvider.of<ChangeLocaleCubit>(context).changeLocale(context),
+            ),
           ),
         );
       },

@@ -7,6 +7,7 @@ import 'package:dog_license_application/views/change_password_view.dart';
 import 'package:dog_license_application/views/community_view.dart';
 import 'package:dog_license_application/views/home_view.dart';
 import 'package:dog_license_application/views/profile_view.dart';
+import 'package:dog_license_application/views/scores_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -111,6 +112,14 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 onTap: () async {
                   Get.back();
                   Get.offAllNamed(ProfileView.id);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.percent),
+                title: const Text("Scores"),
+                onTap: () async {
+                  Get.back();
+                  Get.offAllNamed(ScoresView.id);
                 },
               ),
               ListTile(

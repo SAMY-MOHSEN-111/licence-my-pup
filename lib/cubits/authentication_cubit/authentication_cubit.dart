@@ -25,6 +25,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     var response = await AuthenticationRepo().login(model);
     if (response is LoginSuccessResponse) {
       isLoading = false;
+      await GetStorage().write("email", model.email);
       await GetStorage().write("token", response.loginResponseModel.token);
       await GetStorage().write("logged-in", true);
       Get.offAllNamed(HomeView.id);
@@ -97,6 +98,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
   void logout() {
+    GetStorage().remove("email");
     GetStorage().remove("token");
     GetStorage().remove("avatar");
     GetStorage().remove("profile");

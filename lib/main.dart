@@ -1,8 +1,11 @@
 import 'package:dog_license_application/configuration/dio_client.dart';
 import 'package:dog_license_application/cubits/authentication_cubit/authentication_cubit.dart';
 import 'package:dog_license_application/cubits/change_locale_cubit/change_locale_cubit.dart';
+import 'package:dog_license_application/cubits/exams_cubit/exams_cubit.dart';
 import 'package:dog_license_application/cubits/lessons_cubit/lessons_cubit.dart';
+import 'package:dog_license_application/cubits/posts_cubit/posts_cubit.dart';
 import 'package:dog_license_application/cubits/profile_cubit/profile_cubit.dart';
+import 'package:dog_license_application/cubits/scores_cubit/scores_cubit.dart';
 import 'package:dog_license_application/cubits/units_cubit/units_cubit.dart';
 import 'package:dog_license_application/generated/l10n.dart';
 import 'package:dog_license_application/themes/light_theme.dart';
@@ -14,13 +17,17 @@ import 'package:dog_license_application/views/lesson_view.dart';
 import 'package:dog_license_application/views/lessons_view.dart';
 import 'package:dog_license_application/views/login_view.dart';
 import 'package:dog_license_application/views/profile_view.dart';
+import 'package:dog_license_application/views/question_details_view.dart';
 import 'package:dog_license_application/views/register_view.dart';
+import 'package:dog_license_application/views/scores_view.dart';
 import 'package:dog_license_application/views/web_view_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' as bloc;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
+import 'views/exam_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,6 +59,9 @@ class DogLicenseApplication extends StatelessWidget {
     return bloc.MultiBlocProvider(
       providers: [
         bloc.BlocProvider(create: (context) => UnitsCubit()),
+        bloc.BlocProvider(create: (context) => PostsCubit()),
+        bloc.BlocProvider(create: (context) => ExamsCubit()),
+        bloc.BlocProvider(create: (context) => ScoresCubit()),
         bloc.BlocProvider(create: (context) => ProfileCubit()),
         bloc.BlocProvider(create: (context) => LessonsCubit()),
         bloc.BlocProvider(create: (context) => AuthenticationCubit()),
@@ -77,8 +87,10 @@ class DogLicenseApplication extends StatelessWidget {
                 FocusManager.instance.primaryFocus?.unfocus();
               },
               getPages: [
+                GetPage(name: ExamView.id, page: () => const ExamView()),
                 GetPage(name: HomeView.id, page: () => const HomeView()),
                 GetPage(name: LoginView.id, page: () => const LoginView()),
+                GetPage(name: ScoresView.id, page: () => const ScoresView()),
                 GetPage(name: SignupView.id, page: () => const SignupView()),
                 GetPage(name: ProfileView.id, page: () => const ProfileView()),
                 GetPage(name: CommunityView.id, page: () => const CommunityView()),
@@ -87,6 +99,7 @@ class DogLicenseApplication extends StatelessWidget {
                 GetPage(name: LessonsView.id, page: () => const LessonsView(), transition: Transition.rightToLeft),
                 GetPage(name: WebViewView.id, page: () => const WebViewView(), transition: Transition.rightToLeft),
                 GetPage(name: ForgetPasswordView.id, page: () => const ForgetPasswordView(), transition: Transition.rightToLeft),
+                GetPage(name: QuestionDetailsView.id, page: () => const QuestionDetailsView(), transition: Transition.rightToLeft),
               ],
               initialRoute: loggedIn ? HomeView.id : LoginView.id,
             );
